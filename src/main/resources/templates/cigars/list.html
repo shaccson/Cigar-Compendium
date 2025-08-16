@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cigars · Cigar Compendium</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div th:replace="~{layout :: layout(~{::content})}">
+
+    <div th:fragment="content">
+
+        <div class="page-header">
+            <h2>Cigars</h2>
+        </div>
+
+        <form method="get" th:action="@{/cigars}" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+            <select name="origin" style="max-width:200px">
+                <option value="">All Origins</option>
+                <option th:each="o : ${allOrigins}"
+                        th:value="${o.name()}"
+                        th:text="${o}"
+                        th:selected="${origin} == ${o}"></option>
+            </select>
+
+            <select name="strength" style="max-width:200px">
+                <option value="">All Strengths</option>
+                <option th:each="s : ${allStrengths}"
+                        th:value="${s.name()}"
+                        th:text="${s}"
+                        th:selected="${strength} == ${s}"></option>
+            </select>
+            </select>
+
+            <select name="brand" style="max-width:220px">
+                <option value="">All Brands</option>
+                <option th:each="b : ${allBrands}"
+                        th:value="${b}"
+                        th:text="${b}"
+                        th:selected="${brand} == ${b}"></option>
+            </select>
+
+            <input type="text" name="q" placeholder="Search by name…" th:value="${q}" style="flex:1; min-width:220px">
+
+            <button class="btn" type="submit">Filter</button>
+            <a class="btn" th:href="@{/cigars}" style="opacity:.9">Reset</a>
+        </form>
+
+        <div class="grid">
+            <article class="card" th:each="c : ${cigars}">
+                <div class="thumb-wrap">
+                    <img class="thumb"
+                         th:src="${c.imagePath} ?: @{/images/placeholder-cigar.png}"
+                         alt="Cigar thumbnail">
+                </div>
+
+                <header class="card-title" style="margin-top:6px;">
+                    <a th:href="@{'/cigar/' + ${c.id}}" th:text="${c.name}">Name</a>
+                </header>
+
+                <div class="badge-row">
+                    <span class="badge" th:text="${c.brand}">Brand</span>
+                    <span class="badge" th:text="${c.origin}">Origin</span>
+                    <span class="badge" th:text="${c.strength}">Strength</span>
+                </div>
+
+                <div style="margin-top:auto;">
+                    <a class="btn btn-link" th:href="@{'/cigar/' + ${c.id}}">View</a>
+                </div>
+            </article>
+        </div>
+
+        <p class="muted" th:if="${#lists.isEmpty(cigars)}" style="margin-top:10px;">
+            No cigars match your filter.
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>

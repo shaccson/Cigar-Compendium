@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Cigar Compendium</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="nav">
+    <div class="nav-inner">
+        <a th:href="@{/}" class="brand">Cigar Compendium</a>
+        <div class="spacer"></div>
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Register</h1>
+
+    <div class="alert" th:if="${setupOpen}">
+        Setup mode is active. New accounts are created as <b>admins</b>.
+    </div>
+
+    <form th:action="@{/register}" th:object="${user}" method="post" class="form" novalidate>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input th:if="${setupOpen}" type="hidden" name="role" value="ROLE_ADMIN"/>
+
+        <label>
+            Username
+            <input type="text" th:field="*{username}" placeholder="yourname" required>
+            <span class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        </label>
+
+        <label>
+            Email
+            <input type="email" th:field="*{email}" placeholder="email@example.com" required>
+            <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </label>
+
+        <label>
+            Password
+            <input type="password" th:field="*{password}" placeholder="••••••••" required>
+            <span class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </label>
+
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+</div>
+
+<div class="footer">
+    <div class="container">
+        &copy; 2025 Cigar Compendium
+    </div>
+</div>
+</body>
+</html>

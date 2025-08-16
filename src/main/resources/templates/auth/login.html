@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login · Cigar Compendium</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="nav">
+    <div class="nav-inner">
+        <a href="/" class="brand">Cigar Compendium</a>
+        <div class="nav-links">
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/register}">Register</a>
+            <span class="spacer"></span>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="max-width:520px;">
+    <div class="page-header">
+        <h2>Sign in</h2>
+    </div>
+
+    <div th:if="${param.error}" class="alert">Invalid username or password.</div>
+    <div th:if="${info}" class="alert success" th:text="${info}"></div>
+
+    <div class="card">
+        <form th:action="@{/login}" method="post" class="form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <label>
+                Username
+                <input type="text" name="username" placeholder="yourname" required>
+            </label>
+
+            <label>
+                Password
+                <input type="password" name="password" placeholder="••••••••" required>
+            </label>
+
+            <button class="btn btn-primary" type="submit">Login</button>
+            <a class="btn" th:href="@{/register}">Create account</a>
+        </form>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">&copy; 2025 Cigar Compendium</div>
+</div>
+
+</body>
+</html>

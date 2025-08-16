@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Session expired · Cigar Compendium</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="page-header">
+    <h2>Session expired</h2>
+</div>
+<div class="card w-600">
+    <p class="muted">Your session has expired, possibly due to logging in elsewhere.</p>
+    <p><a class="btn btn-primary" th:href="@{/login}">Log in again</a></p>
+</div>
+</body>
+</html>

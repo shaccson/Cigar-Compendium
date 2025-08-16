@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Cigar · Admin · Cigar Compendium</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div th:replace="~{layout :: layout(~{::content})}">
+    <div th:fragment="content">
+
+        <div class="page-header">
+            <h2>Add Cigar (Admin)</h2>
+            <a class="btn" th:href="@{/admin}">← Back to Admin</a>
+        </div>
+
+        <div th:if="${error}" class="alert" th:text="${error}"></div>
+        <div th:if="${success}" class="alert success" th:text="${success}"></div>
+
+        <div class="card w-600">
+            <form th:action="@{/admin/cigars}" th:object="${cigar}"
+                  method="post" enctype="multipart/form-data" class="form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <label>Name
+                    <input th:field="*{name}" required>
+                    <span class="field-error" th:errors="*{name}"></span>
+                </label>
+
+                <label>Brand
+                    <input th:field="*{brand}" required>
+                    <span class="field-error" th:errors="*{brand}"></span>
+                </label>
+
+                <label>Origin
+                    <select th:field="*{origin}" required>
+                        <option th:each="o : ${allOrigins}"
+                                th:value="${o.name()}"
+                                th:text="${o.label}">Cuba</option>
+                    </select>
+                    <span class="field-error" th:errors="*{origin}"></span>
+                </label>
+
+                <label>Strength
+                    <select th:field="*{strength}" required>
+                        <option th:each="s : ${allStrengths}"
+                                th:value="${s.name()}"
+                                th:text="${s.label}">Mild</option>
+                    </select>
+                    <span class="field-error" th:errors="*{strength}"></span>
+                </label>
+
+                <label>Flavor (optional)
+                    <input th:field="*{flavor}" maxlength="255" placeholder="e.g. Cedar, Cocoa">
+                    <span class="field-error" th:errors="*{flavor}"></span>
+                </label>
+
+                <label>Photo (optional, JPG/PNG, max 5MB)
+                    <input type="file" name="imageFile" accept="image/*">
+                    <span class="field-error" th:errors="*{imagePath}"></span>
+                </label>
+
+                <button class="btn btn-primary" type="submit">Save</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
