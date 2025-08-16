@@ -16,7 +16,7 @@ Admins can manage users, create and delete cigars (including reviews & images), 
 
 Cigar Compendium is written with **Spring Boot**. To run:
 
-1. Configure your database in `application.properties` (made for **MySQL**, **PostgreSQL** is an option).
+1. Configure your database in `application.yml` (made for **MySQL**, **PostgreSQL** is an option).
 2. Compile with **Maven** and run the generated JAR file.
 3. Start the application and access it at `http://localhost:8080/`.
 
