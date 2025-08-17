@@ -215,7 +215,6 @@ public class AdminController {
         if (auth != null && username.equals(auth.getName())) {
             HttpSession session = request.getSession(false);
             if (session != null) session.invalidate();
-            return "redirect:/login?info=Admin%20access%20revoked.%20Please%20sign%20in%20again.";
         }
 
         ra.addFlashAttribute("success", "User '" + username + "' is no longer an admin.");
