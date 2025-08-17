@@ -162,7 +162,9 @@ public class AdminController {
 
     @PostMapping("/delete-user")
     @Transactional
-    public String deleteUser(@RequestParam String username, RedirectAttributes ra) {
+    public String deleteUser(@RequestParam String username,
+                             RedirectAttributes ra,
+                             HttpServletRequest request) {
         var userOpt = users.findByUsername(username);
         if (userOpt.isEmpty()) {
             ra.addFlashAttribute("error", "No user with username '" + username + "' found.");
@@ -170,13 +172,22 @@ public class AdminController {
         }
 
         var user = userOpt.get();
+
         reviews.deleteByUserId(user.getId());
         users.delete(user);
+        expireUserSessions(username);
+
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && username.equals(auth.getName())) {
+            var session = request.getSession(false);
+            if (session != null) session.invalidate();
+            ra.addFlashAttribute("info", "Your account has been deleted.");
+            return "redirect:/login";
+        }
 
         ra.addFlashAttribute("success", "User '" + username + "' deleted along with their reviews.");
         return "redirect:/admin#users";
     }
-
     @PostMapping("/revoke-admin")
     public String revokeAdmin(@RequestParam String username,
                               RedirectAttributes ra,
