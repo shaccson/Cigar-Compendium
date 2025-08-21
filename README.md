@@ -29,7 +29,7 @@ As soon as you finish creating your admin accounts, turn this mode off in the Ad
 
 Admin privileges can be granted or revoked via admin accounts on the fly.
 
-FIXME - SCREENSHOTS
+![Finish setup](doc/screenshots/finishsetup.png)
 
 ---
 
