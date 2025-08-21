@@ -67,6 +67,6 @@ Admin privileges can be granted or revoked via admin accounts on the fly.
   * Browse the cigar catalog
   * Submit their own reviews
 * Admins can:
-  * Create delete cigars (including reviews and images)
+  * Create / Delete cigars
   * Manage reviews
   * Manage users and roles
