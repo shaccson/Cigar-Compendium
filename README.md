@@ -10,6 +10,7 @@ The main objectives were:
 Users can browse cigars, add reviews with ratings and see other user's reviews with averages.
 Admins can manage users, create and delete cigars (including reviews & images), and moderate content.
 
+![Cigar Compendium](doc/screenshots/cigarcompendium.png)
 ---
 
 ## Installation
@@ -25,7 +26,6 @@ Database schema is generated automatically from JPA entities along with examples
 The initial build comes with a couple of users, cigars and reviews to show basic possible setup and functions, it is
 recommended to delete these users before using the app.
 
-![Cigar Compendium](doc/screenshots/cigarcompendium.png)
 
 ## Configuration
 When first built, the app uses a "configuration mode", this is shown during registration, any users registered will obtain the Admin role.
